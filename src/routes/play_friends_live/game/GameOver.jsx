@@ -26,13 +26,21 @@ function GameOver({ playerData, currentPlayer, setIsContinue }) {
         <figure className="flex justify-center w-full">
           <img src={leaderBoard[0].avatar} alt="" width={300}/>
         </figure>
-        <p className="text-center text-5xl pri-font capitalize">{leaderBoard[0].name === ''?leaderBoard[0].tag:leaderBoard[0].name} wins</p>
+        <p className="text-center text-5xl pri-font capitalize" role="status">{leaderBoard[0].name === ''?leaderBoard[0].tag:leaderBoard[0].name} wins</p>
+        <p className="text-center text-sm text-[#ffffffb0]">Result saved to the leaderboard</p>
 
         <Link
           to={`/live-game/setup`}
           className="text-center sec-font text-xl rounded px-8 py-4 bg-[#d30cbcc0] font-bold duration-500 skew-x-6 hover:skew-x-0 hover:scale-95 hover:bg-[#d30cbc]"
         >
           Play Again
+        </Link>
+
+        <Link
+          to={`/leaderboard`}
+          className="text-center sec-font text-xl rounded px-8 py-4 bg-[#056FA4c0] font-bold duration-500 skew-x-6 hover:skew-x-0 hover:scale-95 hover:bg-[#056FA4]"
+        >
+          Leaderboard
         </Link>
 
         <Link
