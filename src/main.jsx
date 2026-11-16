@@ -9,6 +9,7 @@ import Home from "./routes/Home";
 import HowToPlay from "./routes/HowToPlay";
 import LiveGame from "./routes/play_friends_live/game/Game";
 import LiveGamePage from "./routes/play_friends_live/LivePage";
+import Leaderboard from "./routes/Leaderboard";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
             element: <HowToPlay />,
           },
         ]},
+      {
+        path: "leaderboard/",
+        element: <Leaderboard />,
+        errorElement: <ErrorPage />,
+      },
       {
         path: "/",
         element: <Home />,

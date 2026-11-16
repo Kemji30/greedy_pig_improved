@@ -12,18 +12,27 @@ export default function Navbar() {
 
         <img src={logo} alt="logo" width={75} />
       </a>
-      <Link
-        to={`/live-game/how-to-play`}
-        className=" text-[#ffffff] hover:underline duration-300 font-bold hidden md:flex"
-      >
-        How To Play?
-      </Link>
-      <Link
-        to={`/live-game/how-to-play`}
-        className=" text-[#ffffff] hover:underline duration-300 font-bold flex text-xl md:hidden"
-      >
-        ?
-      </Link>
+      <div className="flex gap-4 md:gap-6 items-center">
+        <Link
+          to={`/leaderboard`}
+          className=" text-[#ffffff] hover:underline duration-300 font-bold text-sm md:text-base"
+        >
+          Leaderboard
+        </Link>
+        <Link
+          to={`/live-game/how-to-play`}
+          className=" text-[#ffffff] hover:underline duration-300 font-bold hidden md:flex"
+        >
+          How To Play?
+        </Link>
+        <Link
+          to={`/live-game/how-to-play`}
+          aria-label="How to play"
+          className=" text-[#ffffff] hover:underline duration-300 font-bold flex text-xl md:hidden"
+        >
+          ?
+        </Link>
+      </div>
     </nav>
   );
 }
