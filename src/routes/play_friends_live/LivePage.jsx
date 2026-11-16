@@ -3,20 +3,49 @@ import { Outlet } from "react-router-dom";
 import { useGreedyPigContext } from "src/context/useGreedyPigContext";
 import { LiveGameContext } from "src/context/useLiveGameContext";
 import { getInitialPlayerData } from "src/utils/live_game/getInitialData";
+import useServerGame from "src/hooks/useServerGame";
+
+const TUTORIAL_KEY = "greedy_pig_tutorial_seen_v1";
 
 function LiveGamePage() {
-  const { preloadSrcList,pigPetNames } = useGreedyPigContext();
-  const [playerData, setPlayerData] = useState(getInitialPlayerData(preloadSrcList.slice(0,9),pigPetNames));
+  const { preloadSrcList, pigPetNames } = useGreedyPigContext();
+  // playerData = the players being set up. gamePlayers = the players in the running game.
+  const [playerData, setPlayerData] = useState(
+    getInitialPlayerData(preloadSrcList.slice(0, 9), pigPetNames)
+  );
+  const [gamePlayers, setGamePlayers] = useState([]);
+  const [gameId, setGameId] = useState(null);
+  const [gameMode, setGameMode] = useState("friends"); // "friends" | "bot"
+  const [botLevel, setBotLevel] = useState("medium");
   const [maxPoints, setMaxPoints] = useState(100);
-  const [gameHistory, setGameHistory] = useState([]);
-  const [numberRolled, setNumberRolled] = useState(0);
-  const [changeBackground, setChangeBackground] = useState(false); //if the state of the game was still in the running points
-  const [isGameOver, setIsGameOver] = useState(false); 
-  const [isContinue, setIsContinue] = useState(false); 
-  const [isRunning, setIsRunning] = useState("?"); //if the state of the game was still in the running points
+  const [changeBackground, setChangeBackground] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [isContinue, setIsContinue] = useState(false);
   const [diceValue, setDiceValue] = useState(0);
   const [currentPlayer, setCurrentPlayer] = useState(0);
-  
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  const game = useServerGame({
+    gameId,
+    gamePlayers,
+    setGamePlayers,
+    currentPlayer,
+    setCurrentPlayer,
+    isGameOver,
+    setIsGameOver,
+    setDiceValue,
+    setChangeBackground,
+  });
+
+  const closeTutorial = () => {
+    setShowTutorial(false);
+    try {
+      localStorage.setItem(TUTORIAL_KEY, "1");
+    } catch {
+      /* private mode: the tutorial may show again, that is fine */
+    }
+  };
+
   return (
     <>
       <main className="bg-[#111111] min-h-screen min-w-full relative z-10 sec-font ">
@@ -32,14 +61,16 @@ function LiveGamePage() {
           value={{
             playerData,
             setPlayerData,
+            gamePlayers,
+            setGamePlayers,
+            gameId,
+            setGameId,
+            gameMode,
+            setGameMode,
+            botLevel,
+            setBotLevel,
             maxPoints,
             setMaxPoints,
-            gameHistory,
-            setGameHistory,
-            numberRolled,
-            setNumberRolled,
-            isRunning,
-            setIsRunning,
             changeBackground,
             setChangeBackground,
             diceValue,
@@ -49,7 +80,12 @@ function LiveGamePage() {
             setIsGameOver,
             isGameOver,
             isContinue,
-            setIsContinue
+            setIsContinue,
+            showTutorial,
+            openTutorial: () => setShowTutorial(true),
+            closeTutorial,
+            tutorialKey: TUTORIAL_KEY,
+            ...game,
           }}
         >
           <Outlet />
