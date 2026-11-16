@@ -10,8 +10,8 @@ import useAudio from "src/hooks/useAudio";
 import { useGreedyPigContext } from "src/context/useGreedyPigContext";
 
 export default function AddPlayerButton() {
-  const MAX_NUMBER_OF_PLAYERS = 8
-  const { setPlayerData, playerData } = useLiveGameContext();
+  const { setPlayerData, playerData, gameMode } = useLiveGameContext();
+  const MAX_NUMBER_OF_PLAYERS = gameMode === "bot" ? 7 : 8;
   const invalidAudio = useAudio(invalidSound);
   const addPlayerAudio = useAudio(addPlayerSound);
   const { preloadSrcList, pigPetNames } = useGreedyPigContext();

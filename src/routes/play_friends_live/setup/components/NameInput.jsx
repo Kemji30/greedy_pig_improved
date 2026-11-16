@@ -6,17 +6,13 @@ import useAudio from "src/hooks/useAudio";
 
 export default function NameInput({ player,index }) {
   const audio = useAudio(selectSound)
-  const { setPlayerData, playerData } = useLiveGameContext();
+  const { setPlayerData, playerData, gameMode } = useLiveGameContext();
+  const minPlayers = gameMode === "bot" ? 1 : 2;
   const [isMin, setIsMin] = useState(false);
 
   useEffect(() => {
-    const numberOfPlayers = playerData.length;
-    if (numberOfPlayers < 3) {
-      setIsMin(true);
-      return;
-    }
-    setIsMin(false);
-  }, [playerData]);
+    setIsMin(playerData.length <= minPlayers);
+  }, [playerData, minPlayers]);
 
   function handleChange(e) {
     const name = e.target.value;
@@ -39,10 +35,13 @@ export default function NameInput({ player,index }) {
         value={player.name}
         onChange={handleChange}
         placeholder="Enter Name"
+        maxLength={20}
+        aria-label={`Name for player ${index + 1}`}
         className="text-lg font-medium text-center bg-transparent w-full p-0.5  border-b border-b-[#FFFFFF40]  "
       />
       <div className="group relative">
         <button
+          aria-label="Player options"
           className={`px-1 h-full flex justify-center items-center hover:bg-[#ffffff20] rounded border border-[#FFFFFF40] hover:border-[#ffffff80] duration-300`}
         >
           <IoMdMore size={24} />
@@ -53,7 +52,7 @@ export default function NameInput({ player,index }) {
           onClick={removePlayer}
           disabled={isMin}
         >
-          {isMin ? "Min of 2 players required" : "Delete"}
+          {isMin ? `Min of ${minPlayers} player${minPlayers > 1 ? "s" : ""} required` : "Delete"}
         </button>
       </div>
     </div>
