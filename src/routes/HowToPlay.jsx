@@ -11,7 +11,7 @@ export default function HowToPlay() {
       <nav className="fixed top-0 w-full flex justify-between p-[5%]">
         <BackButton />
         <Link
-          to={`/setup`}
+          to={`/live-game/setup`}
           className=" bg-[#D30CBD80] hover:bg-[#D30CBD] duration-300 text-white w-[48px] h-[48px] border rounded-full flex items-center justify-around"
         >
           <AiFillHome size={24} />
@@ -27,6 +27,7 @@ export default function HowToPlay() {
           <section className=" backdrop:blur bg-[#ffffff10] px-8 lg:px-12 py-6 border text-base lg:text-xl rounded-lg">
             <ol className=" list-decimal">
               <li>Enter the max total point you want to reach. "First person to get to 100"</li>
+              <li>Choose to play with friends or against the computer (and pick a difficulty)</li>
               <li>Enter the number of players playing</li>
               <li>Enter the player names</li>
               <li>Next click on the "Play" button</li>
@@ -67,6 +68,27 @@ export default function HowToPlay() {
           <p >
           The first player to score <b>100</b> or more points wins
           </p>
+          </section>
+        </section>
+        <section className="text-white space-y-4">
+          <h1 className="pri-font text-2xl lg:text-4xl">PLAYING THE COMPUTER</h1>
+          <section className=" backdrop:blur bg-[#ffffff10] px-8 lg:px-12 py-6 border text-base lg:text-xl rounded-lg">
+            <ul className=" list-disc space-y-2">
+              <li><b>Easy</b> passes once it has about 10 points in a turn.</li>
+              <li><b>Medium</b> passes at about 20.</li>
+              <li><b>Hard</b> aims for 25, but takes bigger risks when you are close to winning and plays safe when it is far ahead.</li>
+            </ul>
+          </section>
+        </section>
+        <section className="text-white space-y-4">
+          <h1 className="pri-font text-2xl lg:text-4xl">KEYBOARD SHORTCUTS</h1>
+          <section className=" backdrop:blur bg-[#ffffff10] px-8 lg:px-12 py-6 border text-base lg:text-xl rounded-lg">
+            <ul className=" list-disc space-y-2">
+              <li><kbd className="border px-2 rounded">R</kbd> roll the dice</li>
+              <li><kbd className="border px-2 rounded">H</kbd> or <kbd className="border px-2 rounded">P</kbd> pass (bank your points)</li>
+              <li><kbd className="border px-2 rounded">M</kbd> sound on or off</li>
+              <li><kbd className="border px-2 rounded">?</kbd> open the tutorial</li>
+            </ul>
           </section>
         </section>
         <section className="text-white space-y-4">
